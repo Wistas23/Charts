@@ -63,4 +63,9 @@ public protocol ICandleChartDataSet: ILineScatterCandleRadarChartDataSet
     
     /// Are decreasing values drawn as filled?
     var isDecreasingFilled: Bool { get }
+
+    /// Are candle corners rounded?
+    ///
+    /// **default**:  false
+    var isCornersRounded: Bool { get set }
 }

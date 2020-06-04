@@ -133,4 +133,9 @@ open class CandleChartDataSet: LineScatterCandleRadarChartDataSet, ICandleChartD
     
     /// Are decreasing values drawn as filled?
     open var isDecreasingFilled: Bool { return decreasingFilled }
+
+    /// Are candle corners rounded?
+    ///
+    /// **default**:  false
+    open var isCornersRounded = false
 }

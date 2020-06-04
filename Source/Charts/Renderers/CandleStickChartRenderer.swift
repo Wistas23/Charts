@@ -155,8 +155,10 @@ open class CandleStickChartRenderer: LineScatterCandleRadarRenderer
                 _bodyRect.origin.y = CGFloat(close * phaseY)
                 _bodyRect.size.width = (CGFloat(xPos) + 0.5 - barSpace) - _bodyRect.origin.x
                 _bodyRect.size.height = CGFloat(open * phaseY) - _bodyRect.origin.y
-                
+
                 trans.rectValueToPixel(&_bodyRect)
+
+                let clipPath: CGPath = UIBezierPath(roundedRect: _bodyRect, cornerRadius: 1).cgPath
                 
                 // draw body differently for increasing and decreasing entry
 
@@ -166,13 +168,17 @@ open class CandleStickChartRenderer: LineScatterCandleRadarRenderer
 
                     let color = dataSet.decreasingColor ?? dataSet.color(atIndex: j)
                     
-                    if dataSet.isDecreasingFilled
-                    {
-                        context.setFillColor(color.cgColor)
-                        context.fill(_bodyRect)
-                    }
-                    else
-                    {
+                    if dataSet.isDecreasingFilled {
+                        if dataSet.isCornersRounded {
+                            context.addPath(clipPath)
+                            context.setFillColor(color.cgColor)
+                            context.closePath()
+                            context.fillPath()
+                        } else {
+                            context.setFillColor(color.cgColor)
+                            context.fill(_bodyRect)
+                        }
+                    } else {
                         context.setStrokeColor(color.cgColor)
                         context.stroke(_bodyRect)
                     }
@@ -183,13 +189,17 @@ open class CandleStickChartRenderer: LineScatterCandleRadarRenderer
 
                     let color = dataSet.increasingColor ?? dataSet.color(atIndex: j)
                     
-                    if dataSet.isIncreasingFilled
-                    {
-                        context.setFillColor(color.cgColor)
-                        context.fill(_bodyRect)
-                    }
-                    else
-                    {
+                    if dataSet.isIncreasingFilled {
+                        if dataSet.isCornersRounded {
+                            context.addPath(clipPath)
+                            context.setFillColor(color.cgColor)
+                            context.closePath()
+                            context.fillPath()
+                        } else {
+                            context.setFillColor(color.cgColor)
+                            context.fill(_bodyRect)
+                        }
+                    } else {
                         context.setStrokeColor(color.cgColor)
                         context.stroke(_bodyRect)
                     }
