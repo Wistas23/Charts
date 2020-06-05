@@ -522,7 +522,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         case y
     }
 
-    var isInteracting = false
+    open var isInteracting = false
     private var _isDragging = false
     private var _isScaling = false
     private var _gestureScaleAxis = GestureScaleAxis.both
